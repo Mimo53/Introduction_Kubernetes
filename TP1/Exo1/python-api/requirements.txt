@@ -1,0 +1,3 @@
+#Dépendances nécessaires pour le reste du code
+fastapi==0.128.0
+uvicorn==0.34.0
