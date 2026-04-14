@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: HelloWorld
+  name: helloworld
 spec:
   replicas: 3
   template:
     metadata:
       labels:
-        app: HelloWorld
+        app: helloworld
     spec:
       containers:
-      - name: HelloWorld-container
+      - name: helloworld-container
         image: moonshayne/tp1-exo1:latest
         imagePullPolicy: Always
         ports:
