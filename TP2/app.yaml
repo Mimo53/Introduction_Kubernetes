@@ -1,9 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: helloworld
+  name: helloworld-app
 spec:
   replicas: 3
+  selector:
+    matchLabels:
+      app: helloworld
   template:
     metadata:
       labels:
@@ -14,15 +17,5 @@ spec:
         image: moonshayne/tp1-exo1:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 8501
+        - containerPort: 8081
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: TP2-service
-spec:
-  type: LoadBalancer
-  ports:
-    - protocol: TCP
-      port: 8501
-      targetPort: 8501
