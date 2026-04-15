@@ -32,6 +32,7 @@ ENTRYPOINT ["uvicorn", "python-api.src.main:app","--host", "0.0.0.0", "--port", 
 
 Puis on fait dans notre terminal : 
 
+```bash
  TP1 git:(main) ✗ ls
 
 1_docker.md Exo1        java-api
@@ -147,30 +148,42 @@ latest: digest: sha256:673d83f3fb6baafb898b31aa132789803caac110c33d922873dd6402b
 
 ➜  Exo1 git:(main) ✗
 
-"
+```
 
-Commentaire : 
+### Commentaire : 
 
-Quand on regarde les logs de notre image docker, on remarque le message : "INFO: 192.168.65.1:28219 - "GET /favicon.ico HTTP/1.1" 404 Not Found" 
+Quand on regarde les logs de notre image docker, on remarque le message :
+ ```text
+ INFO: 192.168.65.1:28219 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+ ``` 
+
 Cette erreur vient du fait que notre image n'a pas d'icon d'après le forum : https://discuss.python.org/t/get-http-1-1-404-get-favicon-ico-http-1-1-404/34577
 
 
 
-# Difficulté rencontrer : ############################################################################################################################
+## Difficulté rencontrer :
 
 Au début, il y avait plusieurs problèmes, notamment des erreurs de syntaxes comme :
-
+```bash
 docker build -t <Exo1>/Dockerfile
+```
 
 au lieu de : 
-
+```bash
 docker build -t tp1-exo1
+```
 
 Aussi il y avait des fautes d'orthographes qui se cachait dans mon Dockerfile (pyhton au lieu de python, requirement au lieu de requirements,...)
 
-Aussi j'avais l'erreur :  "Exo1 git:(main) ✗ docker run dockerfile
+Quand je lancais : 
 
+```bash
+Exo1 git:(main) ✗ docker run dockerfile
+```
+Aussi j'avais l'erreur :  
+```text
 failed to connect to the docker API at unix:///Users/zaslaoui/.docker/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /Users/zaslaoui/.docker/run/docker sock: connect: no such file or directory
+```
 
 car je n'avais pas lancer Docker desktop sur mon mac
 
