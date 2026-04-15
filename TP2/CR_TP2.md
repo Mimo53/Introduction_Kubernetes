@@ -310,4 +310,4 @@ connect ECONNREFUSED 0.0.0.0:8081
 Donc au lieu de lancer un service il fallait faire un port-forward sur le pod avec : 
 ```bash
 kubectl port-forward pod/helloworld-app-5b9599f4f7-67zzp 8081:8081
-'''
+```
