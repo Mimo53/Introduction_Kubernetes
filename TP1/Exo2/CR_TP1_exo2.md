@@ -132,7 +132,7 @@ COPY java-api/src ./src
 
 Après j'ai eu des erreurs de ports, quand je faisais 
 ```bash
-➜  Exo2 git:(main) ✗ docker run -p 8082:8082 tp1-exo2
+➜  Exo2 git:(main) ✗ docker run -p 8081:8081 tp1-exo2
 ```
 j'avais :
 ```text
@@ -140,8 +140,8 @@ docker: Error response from daemon: failed to set up container networking: drive
 
 Run 'docker run --help' for more information
 ```
-
-J'ai eu des problèmes de mapping de port (car pour une raison que j'ignore, le conteneur était mappé au port 8080 (je me pencherais sur la question plus tard je pense que ça doit être le port par défaut d'un service qui utilisé par l'application)) et j'ai du faire du nettoyage puis ça a marché. 
+mais c'était parce que le port 8081 était déjà pris par l'exo 1
+J'ai eu des problèmes de mapping de port (le conteneur était mappé au port 8080 (je me pencherais sur la question plus tard je pense que ça doit être le port par défaut d'un service qui utilisé par l'application (tomcat))) et j'ai du faire du nettoyage puis ça a marché. 
 
 
 

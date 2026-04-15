@@ -77,6 +77,16 @@ INFO:     Started server process [1]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8081 (Press CTRL+C to quit)
+onyxia@vscode-python-898847-0:~/work/Introduction_Kubernetes/TP2$ kubectl port-forward pod/helloworld-app-5b9599f4f7-67zzp 8081:8081
+onyxia@vscode-python-898847-0:~/work/Introduction_Kubernetes/TP2$ kubectl logs helloworld-app-5b9599f4f7-67zzp
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8081 (Press CTRL+C to quit)
+INFO:     192.168.1.136:0 - "GET / HTTP/1.1" 404 Not Found
+INFO:     192.168.1.136:0 - "GET / HTTP/1.1" 404 Not Found
+INFO:     192.168.1.136:0 - "GET /hello HTTP/1.1" 200 OK
+INFO:     192.168.1.136:0 - "GET /hello HTTP/1.1" 200 OK
 onyxia@vscode-python-898847-0:~/work/Introduction_Kubernetes/TP2$ kubectl describe pods helloworld-app-5b9599f4f7-67zzp
 Name:             helloworld-app-5b9599f4f7-67zzp
 Namespace:        user-mohamederrafii
@@ -290,3 +300,14 @@ docker buildx build \
 ```
 
 Aussi pour deployer j'ai voulu utiliser un service mais j'ai vu que ce n'était pas ce qui était attendu donc j'ai dû changer.
+et quand je lancais le service, sur les pages : https://user-mohamederrafii-898847-0.user.lab.sspcloud.fr/proxy/8081 et https://user-mohamederrafii-898847-0.user.lab.sspcloud.fr/proxy/8081/hello
+
+j'avais l'erreur : 
+```bash
+connect ECONNREFUSED 0.0.0.0:8081
+```
+
+Donc au lieu de lancer un service il fallait faire un port-forward sur le pod avec : 
+```bash
+kubectl port-forward pod/helloworld-app-5b9599f4f7-67zzp 8081:8081
+'''
