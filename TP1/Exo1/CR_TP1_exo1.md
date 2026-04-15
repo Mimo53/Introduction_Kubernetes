@@ -61,7 +61,7 @@ FINISHED                                                                        
 
  => [internal] load build definition from Dockerfile                                                                                   0.0s
 
- => => transferring dockerfile: 876B                                                                                                   0.0s
+ => transferring dockerfile: 876B                                                                                                      0.0s
 
  => [internal] load metadata for docker.io/library/python:3.13-slim                                                                    0.6s
 
@@ -180,7 +180,7 @@ Quand je lancais :
 ```bash
 Exo1 git:(main) ✗ docker run dockerfile
 ```
-Aussi j'avais l'erreur :  
+J'avais l'erreur :  
 ```text
 failed to connect to the docker API at unix:///Users/zaslaoui/.docker/run/docker.sock; check if the path is correct and if the daemon is running: dial unix /Users/zaslaoui/.docker/run/docker sock: connect: no such file or directory
 ```
@@ -191,24 +191,56 @@ Par ailleurs, j'oubliais les espaces entre les points dnas mon dockerfile
 
 Aussi l'ENTRYPOINT était mauvais, je mettais le chemin absolu depuis mon mac alors qu'il fallait mettre depuis le chemin relatif au WORDIR
 
-Et pour l'ENTRYPOINT, je ne lancais pas python avant ni je rajoutais à main.py un shebang du style '#!/usr/bin/env python3'
+Et pour l'ENTRYPOINT, je ne lancais pas python avant ni je rajoutais à main.py un shebang du style 
+```python
+#!/usr/bin/env python3
+```
 
-Ensuite dans mon terminal je mettais seulement 'docker build -t tp1-exo1' ce qui m'a causé des erreurs je n'avais pas mis de contexte de build : 
+Ensuite dans mon terminal je mettais seulement 
+```bash
+docker build -t tp1-exo1
+``` 
+ce qui m'a causé des erreurs je n'avais pas mis de contexte de build : 
 
+```text
 ERROR: docker: 'docker buildx build' requires 1 argument
 
 Usage:  docker buildx build [OPTIONS] PATH | URL | -
 
 Run 'docker buildx build --help' for more information 
+```
 
-Donc je devais changer ma commande pour mettre 'docker build -t tp1-exo1 .' pour lui dire de lancer la commande à partir de là où j'étais 
+Donc je devais changer ma commande pour mettre :
+```bash
+docker build -t tp1-exo1 .
+```
+pour lui dire de lancer la commande à partir de là où j'étais 
 
-Après une fois que j'arrivais bien à build, j'avais des erreurs dans mon dockerfile, notamment avec le 'COPY python-api/requirements.txt .' (que j'ai remplacé par COPY .. que j'ai lui même remplacé par COPY . .) et des fautes d'orthographes (encore une fois)
+Après une fois que j'arrivais bien à build, j'avais des erreurs dans mon dockerfile, notamment avec le 
+```dockerfile
+COPY python-api/requirements.txt .
+```
+que j'ai remplacé par 
+```dockerfile
+COPY ..
+```
+que j'ai lui même remplacé par 
+```dockerfile
+COPY . .
+``` 
+et des fautes d'orthographes (encore une fois)
 
-avec notamment "--no-cache-dire" au lieu de "--no-cache-dir"
+avec notamment 
+```dockerfile
+--no-cache-dire
+``` 
+au lieu de 
+```dockerfile
+--no-cache-dir
+```
 
 Aussi j'avais l'erreur : 
-'''
+```bash
  Exo1 git:(main) ✗ docker run -p 8080:8080 tp1-exo1
 python: can't open file '/python-api/src/main.py': [Errno 2] No such file or directory
 
@@ -224,9 +256,17 @@ malgré le fait que ma structure de code était :
         └── main.py
 
 3 directories, 4 files
-'''
+```
 
-J'avias cette erreur car je cherchais mon main.py dans le conteneur et non en local et donc le chemin n'était plus "/python-api/src/main.py" mais étais devenu "python-api/src/main.py" sans le slash au début car 
+J'avias cette erreur car je cherchais mon main.py dans le conteneur et non en local et donc le chemin n'était plus 
+```text
+/python-api/src/main.py
+```
+ mais étais devenu 
+ ```text
+ python-api/src/main.py
+ ```
+ sans le slash au début car 
 
 
 Dans mon `Dockerfile`, je défini `WORKDIR /app`. Quand je fais `COPY . .`, la structure à l'intérieur de mon conteneur devient :
@@ -256,21 +296,27 @@ car mon application crashait tout de suite après s'être lancé et j'ai eu du m
 le problème était que main.py faisait appel à FastAPI et que FastAPI ne se alncait pas avec directement avec python et j'avais besoin d'un serveur ASGI et j'avais besoin de uvicorn donc 
 mon entrypoint était incorrect donc j'ai remplacé 
 
-'''
+```dockerfile
 ENTRYPOINT ["python", "main.py"]
-'''
+```
 
 par 
-'''
+```dockerfile
 ENTRYPOINT ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
-'''
+```
 
-Enfin j'avais les messages : " 
-
+Enfin j'avais les messages : 
+```text
 INFO:     192.168.65.1:37012 - "GET / HTTP/1.1" 404 Not Found
 INFO:     192.168.65.1:43436 - "GET /favicon.ico HTTP/1.1" 404 Not Found
 INFO:     192.168.65.1:37012 - "GET /index.php/apps/files/preview-service-worker.js HTTP/1.1" 404 Not Found
+```
 
 ce qui faisait que quand j'allais sur la page page localhost:8080 je ne voyais rien mais c'était parce que mon API n'avait qu'une seule route défénie `/hello` 
 
-et enfin le message : " INFO:     192.168.65.1:43436 - "GET /favicon.ico HTTP/1.1" 404 Not Found " n'est pas une erreur mais juste le signalement du manque d'icon. 
+et enfin le message : 
+
+```text 
+INFO:     192.168.65.1:43436 - "GET /favicon.ico HTTP/1.1" 404 Not Found 
+```
+n'est pas une erreur mais juste le signalement du manque d'icon. 
