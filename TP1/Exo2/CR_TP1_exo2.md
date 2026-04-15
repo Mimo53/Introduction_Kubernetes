@@ -89,7 +89,8 @@ e5e034a8a18e   postgres:18   "docker-entrypoint.s…"   6 days ago      Up 11 ho
 2026-04-13T20:15:05.177Z  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1070 ms
 2026-04-13T20:15:05.489Z  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
 2026-04-13T20:15:05.501Z  INFO 1 --- [           main] com.example.Application                  : Started Application in 1.994 seconds (process running for 3.061)
-
+```
+```bash
 ➜  Exo2 git:(main) ✗ docker tag tp1-exo2 moonshayne/tp1-exo2
 ➜  Exo2 git:(main) ✗ docker push moonshayne/tp1-exo2
 Using default tag: latest
