@@ -243,9 +243,11 @@ Aussi j'avais l'erreur :
 ```bash
  Exo1 git:(main) ✗ docker run -p 8080:8080 tp1-exo1
 python: can't open file '/python-api/src/main.py': [Errno 2] No such file or directory
+```
 
 malgré le fait que ma structure de code était : 
 
+```bash
 ➜  Exo1 git:(main) ✗ tree
 .
 ├── CR.md
