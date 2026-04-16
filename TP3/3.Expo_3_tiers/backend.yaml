@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend-container
+        image: hugosmn5/backend-3-tier:1.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000 
+        env:
+        - name: DB_HOST
+          value: "db"
+        - name: DB_USER
+          value: "admin"
+        - name: DB_PASS
+          value: "password"
+        - name: DB
+          value: "reviews"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend 
+spec:
+  type: ClusterIP
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
