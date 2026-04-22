@@ -54,7 +54,16 @@ CR.md      Dockerfile python-api
 
 3 directories, 4 files
 
-➜  Exo1 git:(main) ✗ docker build -t tp1-exo1 .   
+```
+
+Une fois que l'on s'est placé dans le bon dossier, on fait : 
+
+```bash
+docker build -t tp1-exo1 .
+```
+
+et on obtient en sortie : 
+```bash  
 
 [+] Building 9.8s (9/9) 
 FINISHED                                                                                                                                                                      docker:desktop-linux
@@ -88,18 +97,31 @@ FINISHED                                                                        
  => => writing image sha256:1a4b8bb2ba9712462d5c70cea4be148608043ba20f8c2e7a97accf5a7caab738                                           0.0s 
 
  => => naming to docker.io/library/tp1-exo1                                                                                            0.0s 
+```
+et ensuite pour le lancer on fait la commande : 
+```bash
+docker run -d -p 8081:8081 tp1-exo1
+```
 
-➜  Exo1 git:(main) ✗ docker run -d -p 8081:8081 tp1-exo1
-
+Et  on a en sortie un identifiant de ce que l'on vient de runner (mais pas celui qu'on veut): 
+```bash
 bf62e062229f3e6de2cb099b2dc1a6661cc04a207e610b083ceddf8c07e322c2
-
-➜  Exo1 git:(main) ✗ docker ps      
-
+```
+On regarde l'identifiant (celui qu'on veut)
+```bash
+docker ps
+```
+Pour obtenir :       
+```bash
 CONTAINER ID   IMAGE         COMMAND                  CREATED          STATUS          PORTS                                         NAMES
 bf62e062229f   tp1-exo1      "uvicorn python-api.…"   21 seconds ago   Up 20 seconds   0.0.0.0:8081->8081/tcp, [::]:8081->8081/tcp   jolly_pike
-
-➜  Exo1 git:(main) ✗ docker logs bf62e062229f
-
+```
+Avec cet identifiant on peut regarder les logs avec : 
+```bash
+docker logs bf62e062229f
+```
+Pour avoir : 
+```bash
 INFO:     Started server process [1]
 
 INFO:     Waiting for application startup.
@@ -121,11 +143,17 @@ INFO:     Uvicorn running on http://0.0.0.0:8081 (Press CTRL+C to quit)
 INFO:     192.168.65.1:36298 - "GET /hello HTTP/1.1" 200 OK
 
 INFO:     192.168.65.1:28219 - "GET /favicon.ico HTTP/1.1" 404 Not Found
-
-➜  Exo1 git:(main) ✗ docker tag tp1-exo1 moonshayne/tp1-exo1
-
-➜  Exo1 git:(main) ✗ docker push moonshayne/tp1-exo1
-
+```
+Ensuite pour ajouter un tag : 
+```bash
+docker tag tp1-exo1 moonshayne/tp1-exo1
+```
+et pour mettre sur son dépôt distant
+```bash
+docker push moonshayne/tp1-exo1
+```
+Et on a en sortie :
+```bash
 Using default tag: latest
 
 The push refers to repository [docker.io/moonshayne/tp1-exo1]
@@ -149,7 +177,10 @@ latest: digest: sha256:673d83f3fb6baafb898b31aa132789803caac110c33d922873dd6402b
 ➜  Exo1 git:(main) ✗
 
 ```
+Et on a fini le TP 
 
+PS : Désolé pour le long compte-rendu c'était aussi pour me permettre de bien comprendre ce que je faisais.
+Aussi j'ai mis les sorties de mon terminal à défault d'avoir des captures d'écran; je trouve ça plus beau. Aussi j'ai fait le TP plusieurs fois donc avoir des captures d'écran était moins pratique pour la reprocductibilité (je ne pouvais faire des copiers collé avec les captures d'écran qquand je changeais d'environ et je voulais reconstruire mes images et aussi ôur moi pour plus tard).
 ### Commentaire : 
 
 Quand on regarde les logs de notre image docker, on remarque le message :
