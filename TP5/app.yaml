@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: helloworld-container
-        image: moonshayne/tp1-exo1:v3
+        image: moonshayne/tp1-exo1:v3    #on peut mettre la v2 si on veut seulement tester le endpoint Health (et voir si le tag v2 marchent bien aussi)
         imagePullPolicy: Always
         ports:
         - containerPort: 8081

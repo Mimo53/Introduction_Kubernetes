@@ -584,3 +584,33 @@ Changes to be committed:
         new file:   TP8/CR_TP8.md
 
 ➜  Introduction_Kubernetes git:(main) ✗                                             
+
+
+
+Partie onyxia : 
+nyxia@vscode-python-166697-0:~/work/Introduction_Kubernetes$ cd TP5
+onyxia@vscode-python-166697-0:~/work/Introduction_Kubernetes/TP5$ kubectl apply -f app.yaml
+deployment.apps/helloworld-app configured
+service/helloworld-service unchanged
+ingress.networking.k8s.io/helloworld-ingress unchanged
+onyxia@vscode-python-166697-0:~/work/Introduction_Kubernetes/TP5$ kubectl rollout status deployment helloworld-app
+Waiting for deployment "helloworld-app" rollout to finish: 2 of 3 updated replicas are available...
+deployment "helloworld-app" successfully rolled out
+onyxia@vscode-python-166697-0:~/work/Introduction_Kubernetes/TP5$ kubectl rollout history deployment helloworld-app
+deployment.apps/helloworld-app 
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+
+onyxia@vscode-python-166697-0:~/work/Introduction_Kubernetes/TP5$ curl https://helloworld.lab.sspcloud.fr/hello
+"world"onyxia@vscode-python-166697-0:~/work/Introduction_Kubernetes/TP5$ curl https://helloworld.lab.sspcloud.fr/health
+{"status":"ok"}onyxia@vscode-python-166697-0:~/work/Introduction_Kubernetes/TP5$ curl https://helloworld.lab.sspcloud.fr/ensai
+{"message":"Bienvenue à l'ENSAI !"}onyxia@vscode-python-166697-0:~/work/Introduction_Kubernetes/TP5$ kubectl rollout undo deployment helloworld-app
+deployment.apps/helloworld-app rolled back
+onyxia@vscode-python-166697-0:~/work/Introduction_Kubernetes/TP5$ kubectl rollout history deployment helloworld-app
+deployment.apps/helloworld-app 
+REVISION  CHANGE-CAUSE
+2         <none>
+3         <none>
+
+onyxia@vscode-python-166697-0:~/work/Introduction_Kubernetes/TP5$ 
