@@ -17,7 +17,7 @@ spec:
         image: hugosmn5/backend-3-tier:1.1
         imagePullPolicy: Always
         ports:
-        - containerPort: 8000 
+        - containerPort: 5000 
         env:
         - name: DB_HOST
           value: "db"
@@ -38,5 +38,5 @@ spec:
     app: backend
   ports:
     - protocol: TCP
-      port: 8000
-      targetPort: 8000
+      port: 5000
+      targetPort: 5000

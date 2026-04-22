@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "backend-app.fullname" . }}-backend
+  labels:
+    {{- include "backend-app.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "backend-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "backend-app.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: backend-container
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.targetPort }}
+        env:
+        - name: DB
+          value: {{ .Values.env.DB | quote }}
+        - name: DB_HOST
+          value: {{ printf "%s-postgresql-rw" .Release.Name | quote }}
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ printf "%s-postgresql-app" .Release.Name }}
+              key: username
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: {{ printf "%s-postgresql-app" .Release.Name }}
+              key: password

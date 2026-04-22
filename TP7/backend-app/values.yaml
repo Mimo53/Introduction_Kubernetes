@@ -1,0 +1,48 @@
+# backend-app/values.yaml
+replicaCount: 3
+
+image:
+  repository: hugosmn5/backend-3-tier
+  pullPolicy: Always
+  tag: "1.1"
+
+service:
+  type: ClusterIP
+  port: 5000
+  targetPort: 5000
+
+env:
+  DB: "reviews"
+  DB_HOST: "db"
+  DB_USER: "admin"
+  DB_PASS: "password"
+
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "125m"
+  limits:
+    memory: "128Mi"
+    cpu: "125m"
+
+readinessProbe:
+  tcpSocket:
+    port: 5000
+  initialDelaySeconds: 5
+  periodSeconds: 5
+
+livenessProbe:
+  tcpSocket:
+    port: 5000
+  initialDelaySeconds: 15
+  periodSeconds: 10
+
+# Configuration PostgreSQL via CNPG
+postgresql:
+  cluster:
+    instances: 1
+    storage:
+      size: "1Gi"
+    initdb:
+      database: reviews
+      owner: admin

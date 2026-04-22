@@ -1,5 +1,4 @@
 # TP2 
-
 On reprends l'image docker que l'on a pushé lors de l'exercice 1 du TP1 et on va utiliser Kubernetes pour faire un deployment.
 Pour l'utilisation de kubernetes j'ai arrété d'utiliser mon ordinateur personnelle (même si cela est possible notamment avec minikube) et j'ai travaillé sur un service Onyxia (VSCode-python)
 Or les containeurs onyxia tourne sur linux est j'ai pushé mes images depuis mon mac donc j'ai du corriger ça en modifiant mon push avec la commande : 

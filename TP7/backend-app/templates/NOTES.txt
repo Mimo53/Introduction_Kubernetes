@@ -1,0 +1,4 @@
+Backend déployé avec succès !
+
+Pour accéder au service :
+  kubectl port-forward service/{{ include "backend-app.fullname" . }}-backend 5000:5000
