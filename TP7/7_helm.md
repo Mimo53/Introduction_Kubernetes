@@ -268,8 +268,4 @@ helm uninstall ma-release
 kubectl get all  # Vérifier que toutes les ressources ont été supprimées
 ```
 
-## Bonus : chart Helm 3tier
 
-L'objectif de ce dernier exercice est d'ajouter le frontend dans le chart Helm. 
-
-L'idée est d'installer toute la stack avec une unique ligne de commande. 
