@@ -50,8 +50,6 @@ Livrables :
    ```
 
 
-NB : CNPG utilise un pattern opérateur avec des CRD (Custom Resource Definition). L'idée de ce type d'architecture est de faciliter le déploiement et la gestion d'outils spécifiques (ici une postegres). Sur le SSP Cloud, l'opérateur est déjà installé, ce qui permettra d'installer des clusters postgres facilement. 
-
 
 ## Exercice 2 : Un chart pour le Backend
 
