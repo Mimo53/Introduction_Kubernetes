@@ -77,7 +77,6 @@ spec:
     - port: 5432
       targetPort: 5432
 ---
-# Service classique pour le backend
 apiVersion: v1
 kind: Service
 metadata:
